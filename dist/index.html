@@ -13,11 +13,11 @@
     </div>
 
     <div style="margin-top: 8px;">
-      This is done using a button click handler, which triggers an AJAX auth request. If the request succeeds, the values are copied to a hidden form and the form is submitted by javascript.
+      This attempt is done using a button click handler, which triggers an AJAX auth request. If the request succeeds, the values are copied to a hidden form and the form is submitted by javascript.
     </div>
 
     <div style="margin-top: 8px;">
-      It redirects away after a successful auth. There was not other way I could make chrome prompt to save the password
+      It redirects away after a successful auth. There was no other way I could make chrome prompt to save the password
     </div>
 
     <div style="margin-top: 8px; margin-bottom: 8px;">
@@ -32,7 +32,7 @@
         var placeholder = document.getElementById('placeholder');
         var template = '<div id="fake-form" action="javascript:void(0)" method="POST"><div><input type="email" placeholder="email" name="email" id="email"></div><div><input type="password" placeholder="password" id="password"></div><div><button id="form-submit" type="button">Submit</button></div></div>';
 
-        var hiddenFormTemplate = '<form style="display: none" action="javascript:void(0)" method="post" id="hidden-form"><input type="email" name="email" id="hidden-email"><input type="password" name="password" id="hidden-password"><input type"Submit" value="Submit"></form>';
+        var hiddenFormTemplate = '<form style="display: none" action="javascript:void(0)" method="post" id="hidden-form"><input type="email" name="email" id="hidden-email"><input type="password" name="password" id="hidden-password"><input type"Submit" value="Submit" id="hidden-submit"></form>';
 
         placeholder.innerHTML = template + hiddenFormTemplate;
 
@@ -40,6 +40,7 @@
         var submit = document.getElementById('form-submit');
 
         var hiddenForm = document.getElementById('hidden-form');
+        var hiddenSubmit = document.getElementById('hidden-submit');
 
         var emailInput = document.getElementById('email');
         var passwordInput = document.getElementById('password');
@@ -69,6 +70,7 @@
                 hiddenPasswordInput.value = password;
 
                 hiddenForm.submit();
+
                 window.location.assign('http://www.elm-tutorial.org/');
               }
             }
