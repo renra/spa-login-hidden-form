@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="promise.js"></script>
+    <script src="fetch.js"></script>
+  </head>
+
+  <body>
+    <h1>Experimental SPA login</h1>
+
+    <div>
+      The goal here is to make all browsers prompt to save the credentials. Or at least as many as possible.
+    </div>
+
+    <div style="margin-top: 8px;">
+      This is done using a button click handler, which triggers an AJAX auth request. If the request succeeds, the values are copied to a hidden form and the form is submitted by javascript.
+    </div>
+
+    <div style="margin-top: 8px;">
+      It redirects away after a successful auth. There was not other way I could make chrome prompt to save the password
+    </div>
+
+    <div style="margin-top: 8px; margin-bottom: 8px;">
+      Valid emails are <strong>a@b.com</strong> and <strong>c@d.com</strong>, valid passwords are <strong>1234</strong> and <strong>12345</strong> (you can mix them however you like)
+    </div>
+
+    <div id="placeholder">
+    </div>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function(){
+        var placeholder = document.getElementById('placeholder');
+        var template = '<div id="fake-form" action="javascript:void(0)" method="POST"><div><input type="email" placeholder="email" name="email" id="email"></div><div><input type="password" placeholder="password" id="password"></div><div><button id="form-submit" type="button">Submit</button></div></div>';
+
+        var hiddenFormTemplate = '<form style="display: none" action="javascript:void(0)" method="post" id="hidden-form"><input type="email" name="email" id="hidden-email"><input type="password" name="password" id="hidden-password"><input type"Submit" value="Submit"></form>';
+
+        placeholder.innerHTML = template + hiddenFormTemplate;
+
+        var form = document.getElementById('fake-form');
+        var submit = document.getElementById('form-submit');
+
+        var hiddenForm = document.getElementById('hidden-form');
+
+        var emailInput = document.getElementById('email');
+        var passwordInput = document.getElementById('password');
+
+        var hiddenEmailInput = document.getElementById('hidden-email');
+        var hiddenPasswordInput = document.getElementById('hidden-password');
+
+        var handler = function(e) {
+          console.log('Handler triggered');
+
+          var email = emailInput.value;
+          var password = passwordInput.value;
+
+          fetch(
+            '/auth',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({email: email, password: password})
+            }
+          ).then(
+            function(response){
+              if(response.status == 200){
+                hiddenEmailInput.value = email;
+                hiddenPasswordInput.value = password;
+
+                hiddenForm.submit();
+                window.location.assign('http://www.elm-tutorial.org/');
+              }
+            }
+          )
+
+          return true;
+        };
+
+        submit.addEventListener('click', handler);
+      });
+
+    </script>
+  </body>
+</html>

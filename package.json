@@ -1,0 +1,24 @@
+{
+  "name": "elm-susi",
+  "version": "0.0.1",
+  "description": "GlobalWebIndex Sign up and Sign in app in Elm ",
+  "main": "index.js",
+  "engines": {
+    "node": "7.7.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Jan Renra Gloser<jan@globalwebindex.net>",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^14.1.0",
+    "elm": "^0.18.0",
+    "koa": "^2.2.0",
+    "koa-body": "^1.6.0",
+    "koa-lusca": "^2.2.0",
+    "koa-router": "^5.4.0",
+    "koa-sslify": "^1.1.0",
+    "koa-static": "^3.0.0"
+  }
+}
